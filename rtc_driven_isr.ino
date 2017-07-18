@@ -1,20 +1,24 @@
-//rtc_driven_isr.ino
+
+//modeified  from example in RTClibExtended library 
 #include <Wire.h>
-#include <RTClibExtended.h>
+#include <RTClibExtended.h> //(https://github.com/FabioCuomo/FabioCuomo-DS3231)
 #define interruptPin 2    //use interrupt 0 (pin 2) and run function wakeUp when pin 2 gets LOW
 #define ledPin 13    //use arduino on-board led for indicating sleep or wakeup status
 RTC_DS3231 RTC;      //we are using the DS3231 RTC
-volatile byte i;
-volatile boolean state=false;
 
+volatile uint16_t interuptCount = 0;
+volatile bool interuptFlag = false;
+byte i;
 byte AlarmFlag = 0;
 byte ledStatus = 1;
-
+char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+char dateBuffer[12];
 //-------------------------------------------------
 
 void an_isr()        // here the interrupt is handled after wakeup
 {
-  state=!state;
+    interuptCount++;
+    interuptFlag = true;  
 }
 
 //------------------------------------------------------------
@@ -29,11 +33,9 @@ void clear_alarms(){
 
 void setup() {
   Serial.begin(9600);
-
   Serial.println("Starting wakeup alarm/timer sketch");
   //Set pin D2 as INPUT for accepting the interrupt signal from DS3231
   pinMode(interruptPin, INPUT_PULLUP);
-
   //switch-on the on-board led for 1 second for indicating that the sketch is ok and running
   pinMode(ledPin, OUTPUT);
   //Initialize communication with the clock
@@ -59,7 +61,9 @@ void setup() {
 //------------------------------------------------------------
 
 void loop() {
-  if (state == true){
+  if (interuptFlag == true){
+    DateTime now = RTC.now();
+
     clear_alarms();
     //Set alarm2 every minute
     for (i = 0; i < 11; i++){      
@@ -71,8 +75,13 @@ void loop() {
     //setup the alarms again
     RTC.setAlarm( ALM1_MATCH_SECONDS, 0, 0, 0, 0 ); // alarm1 flag will be set every minute
     RTC.alarmInterrupt(1, true); //enable alarm 2
-    state=false;
-    Serial.println("Interrupt triggered");
+    interuptFlag=false;
+
+   Serial.print("Interrupt triggered at ");    
+   sprintf(dateBuffer,"%02u-%02u-%04u ",now.month(),now.day(),now.year());
+   Serial.print(dateBuffer);
+   sprintf(dateBuffer,"%02u:%02u:%02u ",now.hour(),now.minute(),now.second());
+   Serial.println(dateBuffer);
   }
   delay(10);
 }
