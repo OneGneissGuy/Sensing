@@ -1,7 +1,8 @@
-
-//modeified  from example in RTClibExtended library 
+//RTC_interrupt.ino
+//@jfsaraceno@gmail.com
+//taken from example in RTClibExtended library
 #include <Wire.h>
-#include <RTClibExtended.h> //(https://github.com/FabioCuomo/FabioCuomo-DS3231)
+#include <RTClibExtended.h>//(https://github.com/FabioCuomo/FabioCuomo-DS3231)
 #define interruptPin 2    //use interrupt 0 (pin 2) and run function wakeUp when pin 2 gets LOW
 #define ledPin 13    //use arduino on-board led for indicating sleep or wakeup status
 RTC_DS3231 RTC;      //we are using the DS3231 RTC
@@ -12,7 +13,7 @@ byte i;
 byte AlarmFlag = 0;
 byte ledStatus = 1;
 char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-char dateBuffer[12];
+   char dateBuffer[12];
 //-------------------------------------------------
 
 void an_isr()        // here the interrupt is handled after wakeup
@@ -41,7 +42,6 @@ void setup() {
   //Initialize communication with the clock
   Wire.begin();
   RTC.begin();
-  //  RTC.adjust(DateTime(__DATE__, __TIME__));   //set RTC date and time to COMPILE time
   //clear any pending alarms
   clear_alarms();
   
