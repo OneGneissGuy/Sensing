@@ -1,5 +1,4 @@
-//https://github.com/OneGneissGuy/Sensing/blob/master/temp_humid_lcd.ino
-//taken from example in RTClibExtended library
+//taken from example in RTClibExtended library example
 #include <Wire.h>
 #include <RTClibExtended.h>
 #include "LowPower.h"//avr only
@@ -43,7 +42,6 @@ void setup() {
   //Initialize communication with the clock
   Wire.begin();
   RTC.begin();
-  //  RTC.adjust(DateTime(__DATE__, __TIME__));   //set RTC date and time to COMPILE time
   //clear any pending alarms
   clear_alarms();
   
@@ -58,7 +56,6 @@ void setup() {
   RTC.alarmInterrupt(1, true); //enable alarm 2
   attachInterrupt(digitalPinToInterrupt(interruptPin), an_isr, FALLING);//attach isr to alarm interupt
 }
-
 
 //------------------------------------------------------------
 
