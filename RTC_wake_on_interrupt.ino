@@ -1,7 +1,11 @@
+//RTC_wake_on_interrupt.ino
+//scrip to wake up the arduino using an external interrupt triggered by the DS3231 RTC
+//Specifically, this script wakes from sleep every minute to blink an LED
+//@jfsaraceno@gmail.com
 //taken from example in RTClibExtended library example
 #include <Wire.h>
-#include <RTClibExtended.h>
-#include "LowPower.h"//avr only
+#include <RTClibExtended.h> //(https://github.com/FabioCuomo/FabioCuomo-DS3231)
+#include "LowPower.h"//avr chips only
 
 #define interruptPin 2    //use interrupt 0 (pin 2) and run function wakeUp when pin 2 gets LOW
 #define ledPin 13    //use arduino on-board led for indicating sleep or wakeup status
