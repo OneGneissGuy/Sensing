@@ -1,9 +1,11 @@
 /********************************************************************/
-//Script to read climate data and print to an i2c LCD screen and report
-//data to a thingspeak channel
+//Script to read climate sensors and report data to an I2C LCD screen and 
+//to a thingspeak channel
+
 //Read temperature, pressure and humidity from a BME280 using I2C
 //Read temperature, from a DS18 temperature sensor using One-wire
 //Print all readings to a 20x4 LCD screen once per second
+
 // Hardware
 // LCD: Sunfounder 20 x 4 LCD
 // https://www.sunfounder.com/iic-i2c-twi-serial-2004-20x4-lcd-module-shield-for-arduino-uno-mega2560.html
