@@ -1,5 +1,5 @@
 /********************************************************************/
-//Script to read climate data and print to an LCD screen and report
+//Script to read climate data and print to an i2c LCD screen and report
 //data to a thingspeak channel
 //Read temperature, pressure and humidity from a BME280 using I2C
 //Read temperature, from a DS18 temperature sensor using One-wire
