@@ -1,7 +1,7 @@
 /********************************************************************/
 //Script to read climate data and print ot an LCD screen
 //Read temperature, pressure and humidity from a BME280 using I2C
-//Read temperature, from a DS18 temperature sensor using One-wire
+//Read temperature, from a DS18B20 temperature sensor using One-wire
 //Print all readings to a 20x4 LCD screen once per second
 // Hardware
 // LCD: Sunfounder 20 x 4 LCD
